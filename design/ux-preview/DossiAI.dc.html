@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Work+Sans:wght@400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #ffffff; font-family: 'Work Sans', system-ui, sans-serif; color: #1d1a16; }
+    a { color: #b3502f; text-decoration: none; }
+    a:hover { color: #8a3c22; }
+  </style>
+</helmet>
+
+<div style="min-height: 780px; width: 1280px; background: #ffffff;">
+
+  <!-- top bar -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 26px 64px; border-bottom: 1px solid #ddd3c2;">
+    <div style="display: flex; align-items: baseline; gap: 14px;">
+      <span style="font-family: 'Lora', serif; font-style: italic; font-weight: 600; font-size: 21px; color: #4A0E0E;">Dossier</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 34px;">
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Home</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">People</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Organizations</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Activity</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Reconnect</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Your Story</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a4238" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.2" y2="16.2"></line>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ask dossiai — active state -->
+  <div style="padding: 14px 64px; border-bottom: 1px solid #ddd3c2;">
+    <div style="max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px; border: 1px solid #4A0E0E; border-radius: 4px; padding: 10px 16px;">
+      <div style="width: 22px; height: 22px; border-radius: 50%; background: #f4e9e9; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <span style="font-family: 'Lora', serif; font-style: italic; font-weight: 600; font-size: 12px; color: #4A0E0E;">D</span>
+      </div>
+      <span style="font-size: 14px; color: #1d1a16; flex: 1;">Remove the duplicate entry for Marcus Webb's old Lattice title</span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4A0E0E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </div>
+  </div>
+
+  <!-- content -->
+  <div style="max-width: 720px; margin: 0 auto; padding: 44px 24px 100px;">
+
+    <div style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8c8272; margin-bottom: 4px;">DossiAI</div>
+    <div style="font-size: 15px; color: #4a4238; margin-bottom: 36px; max-width: 560px;">Every change goes through a conversation, not a form. Nothing is written until DossiAI confirms it — and every confirmation says exactly what changed.</div>
+
+    <div style="display: flex; flex-direction: column;">
+
+      <!-- create -->
+      <div style="padding: 26px 0; border-top: 1px solid #ddd3c2;">
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8c8272; margin-bottom: 8px;">You</div>
+        <div style="font-size: 15.5px; color: #1d1a16; line-height: 1.6; margin-bottom: 16px;">Log dinner with Jane Smith last night in Seattle — talked about her CPO move.</div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #4A0E0E; margin-bottom: 8px;">DossiAI · created</div>
+        <div style="font-size: 15px; color: #33291f; line-height: 1.6; max-width: 580px;">Added to Jane Smith's timeline as a Tier 1 interaction — May 14, 2026, Seattle.</div>
+        <a href="#" style="font-size: 12px; margin-top: 8px; display: inline-block;">View on Jane Smith →</a>
+      </div>
+
+      <!-- update -->
+      <div style="padding: 26px 0; border-top: 1px solid #ddd3c2;">
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8c8272; margin-bottom: 8px;">You</div>
+        <div style="font-size: 15.5px; color: #1d1a16; line-height: 1.6; margin-bottom: 16px;">Priya moved to Head of Product at Stripe.</div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #4A0E0E; margin-bottom: 8px;">DossiAI · updated</div>
+        <div style="font-size: 15px; color: #33291f; line-height: 1.6; max-width: 580px;">Updated Priya Raman — title changed to Head of Product, organization changed to Stripe. Her history at HubSpot stays on the timeline.</div>
+        <a href="#" style="font-size: 12px; margin-top: 8px; display: inline-block;">View on Priya Raman →</a>
+      </div>
+
+      <!-- delete -->
+      <div style="padding: 26px 0; border-top: 1px solid #ddd3c2; border-bottom: 1px solid #ddd3c2;">
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8c8272; margin-bottom: 8px;">You</div>
+        <div style="font-size: 15.5px; color: #1d1a16; line-height: 1.6; margin-bottom: 16px;">Remove the duplicate entry for Marcus Webb's old Lattice title.</div>
+        <div style="font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #4A0E0E; margin-bottom: 8px;">DossiAI · removed</div>
+        <div style="font-size: 15px; color: #33291f; line-height: 1.6; max-width: 580px;">Removed the duplicate role entry on Marcus Webb → Lattice. One role remains: Head of Product, 2023–present.</div>
+        <a href="#" style="font-size: 12px; margin-top: 8px; display: inline-block;">View on Marcus Webb →</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

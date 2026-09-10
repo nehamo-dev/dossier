@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Work+Sans:wght@400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #ffffff; font-family: 'Work Sans', system-ui, sans-serif; color: #1d1a16; }
+    a { color: #b3502f; text-decoration: none; }
+    a:hover { color: #8a3c22; }
+    ::selection { background: #e7c9b8; }
+  </style>
+</helmet>
+
+<div style="min-height: 900px; width: 1280px; background: #ffffff;">
+
+  <!-- top bar -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 26px 64px; border-bottom: 1px solid #ddd3c2;">
+    <div style="display: flex; align-items: baseline; gap: 14px;">
+      <span style="font-family: 'Lora', serif; font-style: italic; font-weight: 600; font-size: 21px; letter-spacing: 0.01em; color: #4A0E0E;">Dossier</span>
+      <span style="font-size: 11px; letter-spacing: 0.06em; color: #8c8272; text-transform: uppercase;">Your network, with memory</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 34px;">
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #1d1a16; border-bottom: 1px solid #b3502f; padding-bottom: 3px;">Home</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">People</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Organizations</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Activity</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Reconnect</span>
+      <span style="font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: #6b6255;">Your Story</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a4238" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.2" y2="16.2"></line>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ask dossiai -->
+  <div style="padding: 14px 64px; border-bottom: 1px solid #ddd3c2;">
+    <div style="max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px; border: 1px solid #ddd3c2; border-radius: 4px; padding: 10px 16px;">
+      <div style="width: 22px; height: 22px; border-radius: 50%; background: #f4e9e9; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <span style="font-family: 'Lora', serif; font-style: italic; font-weight: 600; font-size: 12px; color: #4A0E0E;">D</span>
+      </div>
+      <span style="font-size: 14px; color: #8c8272; flex: 1;">Ask DossiAI to add, update, or find something — "when did I last speak with Marcus from Products That Count?"</span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8c8272" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </div>
+  </div>
+
+  <!-- content -->
+  <div style="max-width: 720px; margin: 0 auto; padding: 72px 24px 96px;">
+
+    <div style="margin-bottom: 64px;">
+      <div style="font-family: 'Lora', serif; font-weight: 500; font-size: 46px; line-height: 1.15; color: #4A0E0E;">Good morning.</div>
+      <div style="font-size: 17px; color: #4a4238; margin-top: 10px; max-width: 480px;">Here's who's worth a few minutes today, and what's happened since you last looked.</div>
+    </div>
+
+    <!-- reconnect preview -->
+    <div style="margin-bottom: 60px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px;">
+        <span style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8c8272;">Worth reconnecting</span>
+        <span style="font-size: 12px; color: #b3502f;">View all →</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column;">
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 0; border-top: 1px solid #ddd3c2;">
+          <div style="max-width: 500px;">
+            <div style="font-family: 'Lora', serif; font-weight: 500; font-size: 19px; color: #4A0E0E;">Marcus Webb</div>
+            <div style="font-size: 13px; color: #8c8272; margin: 2px 0 8px;">Head of Product, Lattice</div>
+            <div style="font-size: 14px; color: #4a4238; line-height: 1.5;">8 months since your last conversation — you both keynoted the Products That Count Summit in February.</div>
+          </div>
+          <span style="font-size: 12px; color: #b3502f; white-space: nowrap; margin-top: 4px;">View story →</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 0; border-top: 1px solid #ddd3c2;">
+          <div style="max-width: 500px;">
+            <div style="font-family: 'Lora', serif; font-weight: 500; font-size: 19px; color: #4A0E0E;">Priya Raman</div>
+            <div style="font-size: 13px; color: #8c8272; margin: 2px 0 8px;">VP Product, HubSpot</div>
+            <div style="font-size: 14px; color: #4a4238; line-height: 1.5;">6 months quiet — she introduced you to two people at Acme last year, worth closing the loop.</div>
+          </div>
+          <span style="font-size: 12px; color: #b3502f; white-space: nowrap; margin-top: 4px;">View story →</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 0; border-top: 1px solid #ddd3c2; border-bottom: 1px solid #ddd3c2;">
+          <div style="max-width: 500px;">
+            <div style="font-family: 'Lora', serif; font-weight: 500; font-size: 19px; color: #4A0E0E;">Devon Cole</div>
+            <div style="font-size: 13px; color: #8c8272; margin: 2px 0 8px;">Founder, Women in Product</div>
+            <div style="font-size: 14px; color: #4a4238; line-height: 1.5;">10 months since your last coffee, right before her book launched — good moment to ask how it went.</div>
+          </div>
+          <span style="font-size: 12px; color: #b3502f; white-space: nowrap; margin-top: 4px;">View story →</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- recent activity -->
+    <div>
+      <div style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8c8272; margin-bottom: 20px;">Recent activity</div>
+
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+
+        <div style="display: flex; gap: 20px;">
+          <div style="width: 84px; flex-shrink: 0; font-size: 12px; color: #8c8272; padding-top: 2px;">May 14</div>
+          <div>
+            <div style="font-size: 14.5px; color: #1d1a16;"><span style="font-weight: 600;">Dinner with Jane Smith</span> · Acme, Seattle</div>
+            <div style="font-size: 13.5px; color: #4a4238; margin-top: 3px; line-height: 1.5;">Talked through her move into the CPO seat and Acme's new platform bet.</div>
+            <div style="font-size: 11px; color: #a89c85; margin-top: 5px; font-style: italic;">via Calendar, May 2026</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+          <div style="width: 84px; flex-shrink: 0; font-size: 12px; color: #8c8272; padding-top: 2px;">Apr 30</div>
+          <div>
+            <div style="font-size: 14.5px; color: #1d1a16;"><span style="font-weight: 600;">Panel with Sarah Lin</span> · "Product Leadership in Downturns," San Francisco</div>
+            <div style="font-size: 13.5px; color: #4a4238; margin-top: 3px; line-height: 1.5;">Shared the stage — talked afterward about a follow-up on her hiring plan.</div>
+            <div style="font-size: 11px; color: #a89c85; margin-top: 5px; font-style: italic;">via Granola, Apr 2026</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+          <div style="width: 84px; flex-shrink: 0; font-size: 12px; color: #8c8272; padding-top: 2px;">Apr 22</div>
+          <div>
+            <div style="font-size: 14.5px; color: #1d1a16;"><span style="font-weight: 600;">Coffee with Devon Cole</span> · Women in Product</div>
+            <div style="font-size: 13.5px; color: #4a4238; margin-top: 3px; line-height: 1.5;">Caught up before her book launch — first time meeting in person.</div>
+            <div style="font-size: 11px; color: #a89c85; margin-top: 5px; font-style: italic;">via Gmail, Apr 2026</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+          <div style="width: 84px; flex-shrink: 0; font-size: 12px; color: #8c8272; padding-top: 2px;">Apr 2</div>
+          <div>
+            <div style="font-size: 14.5px; color: #1d1a16;"><span style="font-weight: 600;">Introduced Priya Raman</span> to a former teammate at HubSpot</div>
+            <div style="font-size: 13.5px; color: #4a4238; margin-top: 3px; line-height: 1.5;">Double intro email — following up next week to see if it landed.</div>
+            <div style="font-size: 11px; color: #a89c85; margin-top: 5px; font-style: italic;">via Gmail, Apr 2026</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

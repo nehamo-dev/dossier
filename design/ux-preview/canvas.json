@@ -1,0 +1,10 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1280, "h": 970, "title": "Home" },
+    { "file": "Person.dc.html", "x": 1360, "y": 0, "w": 1280, "h": 1070, "title": "Person" },
+    { "file": "Organization.dc.html", "x": 2720, "y": 0, "w": 1280, "h": 1010, "title": "Organization" },
+    { "file": "Reconnect.dc.html", "x": 4080, "y": 0, "w": 1280, "h": 930, "title": "Reconnect" },
+    { "file": "DossiAI.dc.html", "x": 5440, "y": 0, "w": 1280, "h": 780, "title": "DossiAI" }
+  ],
+  "launch": { "view": "canvas" }
+}
