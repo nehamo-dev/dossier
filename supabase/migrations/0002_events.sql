@@ -8,14 +8,18 @@ create table if not exists events (
   title text not null,
   event_date date not null,
   location text,
-  description text,
-  attendees text, -- comma-joined display names/emails, self excluded
   external_id text,
   created_at timestamptz not null default now()
 );
 
+-- Safe to re-run even if you ran an earlier version of this file before
+-- description/attendees existed — "if not exists" no-ops on a re-run.
+alter table events add column if not exists description text;
+alter table events add column if not exists attendees text; -- comma-joined display names/emails, self excluded
+
 alter table events enable row level security;
 
+drop policy if exists "owner only" on events;
 create policy "owner only" on events for all
   using (auth.jwt() ->> 'email' = 'neha.monga@gmail.com')
   with check (auth.jwt() ->> 'email' = 'neha.monga@gmail.com');
