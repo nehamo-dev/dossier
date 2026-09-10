@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --color-paper: #ffffff;
+  --color-ink: #1d1a16;
+  --color-ink-soft: #4a4238;
+  --color-muted: #8c8272;
+  --color-faint: #a89c85;
+  --color-rule: #ddd3c2;
+  --color-link: #b3502f;
+  --color-link-hover: #8a3c22;
+  --color-oxblood: #4a0e0e;
+  --color-mark-bg: #f4e9e9;
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-muted: var(--color-muted);
+  --color-faint: var(--color-faint);
+  --color-rule: var(--color-rule);
+  --color-link: var(--color-link);
+  --color-oxblood: var(--color-oxblood);
+  --color-mark-bg: var(--color-mark-bg);
+  --font-serif: var(--font-lora);
+  --font-sans: var(--font-work-sans);
+}
+
+@layer base {
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-link-hover);
+  }
+
+  ::selection {
+    background: #e7c9b8;
+  }
+}
