@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { reconnectSuggestions } from "@/lib/mock-data";
+import RequireAccess from "@/components/RequireAccess";
 
 export default function ReconnectPage() {
   return (
+    <RequireAccess>
     <div className="max-w-[720px] mx-auto px-6 pt-16 pb-24">
       <h1 className="font-serif font-medium text-[40px] leading-[1.15] text-oxblood">Reconnect</h1>
       <p className="text-[16px] text-ink-soft mt-2.5 max-w-[520px]">
@@ -28,5 +30,6 @@ export default function ReconnectPage() {
         ))}
       </div>
     </div>
+    </RequireAccess>
   );
 }

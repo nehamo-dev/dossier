@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { people } from "@/lib/mock-data";
+import RequireAccess from "@/components/RequireAccess";
 
 export default async function PersonPage({ params }: PageProps<"/people/[slug]">) {
   const { slug } = await params;
@@ -9,6 +10,7 @@ export default async function PersonPage({ params }: PageProps<"/people/[slug]">
   const tier1and2 = person.timeline.filter((t) => t.tier < 3);
 
   return (
+    <RequireAccess>
     <div className="max-w-[720px] mx-auto px-6 pt-16 pb-24">
       <div className="text-[12px] text-muted mb-4.5">People &nbsp;/&nbsp; {person.name}</div>
 
@@ -64,5 +66,6 @@ export default async function PersonPage({ params }: PageProps<"/people/[slug]">
         </div>
       </div>
     </div>
+    </RequireAccess>
   );
 }

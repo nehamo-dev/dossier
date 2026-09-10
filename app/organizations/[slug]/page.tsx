@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { organizations } from "@/lib/mock-data";
+import RequireAccess from "@/components/RequireAccess";
 
 export default async function OrganizationPage({ params }: PageProps<"/organizations/[slug]">) {
   const { slug } = await params;
@@ -8,6 +9,7 @@ export default async function OrganizationPage({ params }: PageProps<"/organizat
   if (!org) notFound();
 
   return (
+    <RequireAccess>
     <div className="max-w-[720px] mx-auto px-6 pt-16 pb-24">
       <div className="text-[12px] text-muted mb-4.5">Organizations &nbsp;/&nbsp; {org.name}</div>
 
@@ -67,5 +69,6 @@ export default async function OrganizationPage({ params }: PageProps<"/organizat
         </div>
       </div>
     </div>
+    </RequireAccess>
   );
 }

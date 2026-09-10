@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Lora, Work_Sans } from "next/font/google";
-import TopNav from "@/components/TopNav";
-import DossiAIBar from "@/components/DossiAIBar";
+import { AuthProvider } from "@/lib/auth-context";
+import AppShell from "@/components/AppShell";
 import "./globals.css";
 
 const lora = Lora({
@@ -26,9 +26,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${lora.variable} ${workSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-paper text-ink">
-        <TopNav />
-        <DossiAIBar />
-        <main className="flex-1">{children}</main>
+        <AuthProvider>
+          <AppShell>{children}</AppShell>
+        </AuthProvider>
       </body>
     </html>
   );

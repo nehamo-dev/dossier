@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { clearDemoMode } from "@/lib/mode";
 
 const NAV_ITEMS: { label: string; href: string | null; match: string | null }[] = [
   { label: "Home", href: "/", match: "/" },
@@ -12,8 +14,20 @@ const NAV_ITEMS: { label: string; href: string | null; match: string | null }[] 
   { label: "Your Story", href: null, match: null },
 ];
 
-export default function TopNav() {
+export default function TopNav({ mode }: { mode: "real" | "demo" }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { signOut } = useAuth();
+
+  async function handleExit() {
+    if (mode === "real") {
+      await signOut();
+    } else {
+      clearDemoMode();
+      window.location.reload();
+    }
+    router.push("/");
+  }
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-16 py-4 sm:py-6.5 border-b border-rule">
@@ -21,6 +35,11 @@ export default function TopNav() {
         <span className="font-serif italic font-semibold text-[21px] tracking-[0.01em] text-oxblood">
           Dossier
         </span>
+        {mode === "demo" && (
+          <span className="text-[10px] tracking-[0.08em] uppercase text-muted border border-rule px-1.5 py-0.5 rounded-[3px]">
+            Demo
+          </span>
+        )}
       </div>
 
       <nav className="flex items-center gap-5 sm:gap-8 overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -52,6 +71,10 @@ export default function TopNav() {
           <circle cx="11" cy="11" r="7" />
           <line x1="21" y1="21" x2="16.2" y2="16.2" />
         </svg>
+
+        <button onClick={handleExit} className="shrink-0 text-[12px] text-muted hover:text-ink">
+          {mode === "real" ? "Sign out" : "Exit demo"}
+        </button>
       </nav>
     </div>
   );

@@ -32,9 +32,16 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
+
+# real PII from Phase 0+ discovery passes — local only, never committed.
+# The schema (supabase/migrations/) and the generator script
+# (scripts/generate-phase0-seed-sql.mjs) are fine to commit; their output
+# is not.
+/data/phase0/
 
 # typescript
 *.tsbuildinfo
