@@ -108,3 +108,12 @@ export function quietForLabel(days: number): string {
   if (days < 60) return `${Math.round(days / 7)} weeks quiet`;
   return `${Math.round(days / 30)} months quiet`;
 }
+
+// Simple interaction-count threshold — not Phase 4's real relationship
+// scoring engine (that doesn't exist yet). Good enough to sort a list by,
+// not to present as a considered judgment.
+export function strengthTier(interactionCount: number): "Strong" | "Warm" | null {
+  if (interactionCount >= 10) return "Strong";
+  if (interactionCount >= 3) return "Warm";
+  return null;
+}
