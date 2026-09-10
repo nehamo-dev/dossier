@@ -26,6 +26,7 @@ export type Organization = {
   name: string;
   type: string;
   status: string;
+  strength: "Strong" | "Warm";
   description: string;
   roster: { slug: string; name: string; title: string; snippet: string; strength: "Strong" | "Warm" }[];
   sharedTimeline: { date: string; title: string; withNames: string }[];
@@ -35,6 +36,15 @@ export type ReconnectSuggestion = {
   slug: string;
   name: string;
   title: string;
+  quietFor: string;
+  reason: string;
+  source: string;
+};
+
+export type OrgCatchUp = {
+  slug: string;
+  name: string;
+  type: string;
   quietFor: string;
   reason: string;
   source: string;
@@ -204,6 +214,7 @@ export const organizations: Record<string, Organization> = {
     name: "Products That Count",
     type: "Community · product leadership peer group",
     status: "Active · 14 interactions",
+    strength: "Strong",
     description:
       "A peer community for senior product leaders — monthly dinners, an annual summit, and a private Slack. You've been a member since 2022, and it's become the place you reconnect with people from earlier chapters.",
     roster: [
@@ -242,7 +253,142 @@ export const organizations: Record<string, Organization> = {
       { date: "Jun 2025", title: "Slack thread on pricing strategy", withNames: "Devon Cole" },
     ],
   },
+  "product-faculty": {
+    slug: "product-faculty",
+    name: "Product Faculty",
+    type: "Community · executive mentorship",
+    status: "Active · 31 interactions",
+    strength: "Strong",
+    description:
+      "Executive mentor for the product leadership cohort since 2023 — grading, office hours, and periodic 1:1 coaching with rising PM leaders.",
+    roster: [
+      {
+        slug: "marcus-webb",
+        name: "Marcus Webb",
+        title: "Head of Product, Lattice",
+        snippet: "Cohort mentee turned regular coffee catch-up.",
+        strength: "Warm",
+      },
+    ],
+    sharedTimeline: [{ date: "Jan 2026", title: "Coffee catch-up, Seattle", withNames: "Marcus Webb" }],
+  },
+  "product-school": {
+    slug: "product-school",
+    name: "Product School",
+    type: "Community · training & certification",
+    status: "Active · 22 interactions",
+    strength: "Warm",
+    description: "Guest instructor, product leadership track, since 2021 — cohort talks a few times a year plus ad hoc mentoring.",
+    roster: [
+      {
+        slug: "priya-raman",
+        name: "Priya Raman",
+        title: "VP Product, HubSpot",
+        snippet: "Met at a Product School cohort dinner, stayed in touch since.",
+        strength: "Warm",
+      },
+    ],
+    sharedTimeline: [{ date: "Oct 2025", title: "Quarterly dinner, New York", withNames: "Priya Raman" }],
+  },
+  "women-in-product": {
+    slug: "women-in-product",
+    name: "Women in Product",
+    type: "Community · founder network",
+    status: "Active · 9 interactions",
+    strength: "Warm",
+    description: "Speaker and occasional mentor since 2023 — Devon Cole's community for women building and leading product.",
+    roster: [
+      {
+        slug: "devon-cole",
+        name: "Devon Cole",
+        title: "Founder, Women in Product",
+        snippet: "Founder — your closest tie in this group.",
+        strength: "Strong",
+      },
+    ],
+    sharedTimeline: [{ date: "Jun 2025", title: "Slack thread on pricing strategy", withNames: "Devon Cole" }],
+  },
+  reforge: {
+    slug: "reforge",
+    name: "Reforge",
+    type: "Community · cohort-based courses",
+    status: "Active · 5 interactions",
+    strength: "Warm",
+    description: "Cohort alum, product strategy track, 2021 — occasional alumni panels and growth-loops discussions.",
+    roster: [
+      {
+        slug: "jane-smith",
+        name: "Jane Smith",
+        title: "CPO, Acme",
+        snippet: "Fellow alum from the same cohort.",
+        strength: "Warm",
+      },
+      {
+        slug: "marcus-webb",
+        name: "Marcus Webb",
+        title: "Head of Product, Lattice",
+        snippet: "Sat on the growth loops panel together.",
+        strength: "Warm",
+      },
+      {
+        slug: "sarah-lin",
+        name: "Sarah Lin",
+        title: "Director of Product, Meta",
+        snippet: "Fellow alum from the same cohort.",
+        strength: "Warm",
+      },
+    ],
+    sharedTimeline: [
+      { date: "Nov 2024", title: "Panel, growth loops cohort", withNames: "Jane Smith, Marcus Webb, and Sarah Lin" },
+    ],
+  },
+  "mind-the-product": {
+    slug: "mind-the-product",
+    name: "Mind the Product",
+    type: "Community · global PM meetup network",
+    status: "Active · 18 interactions",
+    strength: "Strong",
+    description:
+      "Recurring speaker at regional meetups since 2020 — the San Francisco chapter especially, same circuit as the Products That Count summit crowd.",
+    roster: [
+      {
+        slug: "jane-smith",
+        name: "Jane Smith",
+        title: "CPO, Acme",
+        snippet: "Also crossed paths here — shared the summit stage.",
+        strength: "Strong",
+      },
+    ],
+    sharedTimeline: [{ date: "Feb 3, 2026", title: "Summit keynote, San Francisco", withNames: "Jane Smith" }],
+  },
 };
+
+export const orgCatchUps: OrgCatchUp[] = [
+  {
+    slug: "product-school",
+    name: "Product School",
+    type: "Community",
+    quietFor: "7 months quiet",
+    reason: "Your last dinner was in New York — the cohort's grown since then, worth seeing who's new.",
+    source: "via Calendar, Oct 2025",
+  },
+  {
+    slug: "reforge",
+    name: "Reforge",
+    type: "Community",
+    quietFor: "10 months quiet",
+    reason: "Nothing since the growth loops cohort panel — a new cohort just kicked off.",
+    source: "via Calendar, Nov 2024",
+  },
+  {
+    slug: "women-in-product",
+    name: "Women in Product",
+    type: "Community",
+    quietFor: "9 months quiet",
+    reason: "Devon mentioned a mentor session coming up — good moment to re-engage.",
+    source: "via Slack, Jun 2025",
+  },
+];
 
 export const reconnectSuggestions: ReconnectSuggestion[] = [
   {

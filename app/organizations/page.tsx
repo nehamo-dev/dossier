@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import RequireAccess from "@/components/RequireAccess";
+import RelationshipCard from "@/components/RelationshipCard";
 import { useMode } from "@/lib/use-mode";
 import { organizations as mockOrgs } from "@/lib/mock-data";
 import { getAllOrganizations, getAllInteractions, getAllPeople, shortDate, strengthTier } from "@/lib/supabase/queries";
@@ -38,10 +38,11 @@ function OrganizationsList() {
           type: o.type,
           description: o.description,
           interactionCount,
-          strength: strengthTier(interactionCount),
+          strength: o.strength,
           latest: latest ? { date: latest.date, sortDate: latest.date, title: latest.title, withNames: latest.withNames } : null,
         };
       });
+      computed.sort((a, b) => (a.latest && b.latest ? new Date(b.latest.sortDate).getTime() - new Date(a.latest.sortDate).getTime() : 0));
       setRows(computed);
       return;
     }
@@ -103,45 +104,25 @@ function OrganizationsList() {
         {rows === null && <div className="text-[13px] text-muted py-5">Loading…</div>}
         {rows?.length === 0 && <div className="text-[13px] text-muted py-5">No organizations yet.</div>}
         {rows?.map((o, i) => (
-          <Link
+          <RelationshipCard
             key={o.slug}
             href={`/organizations/${o.slug}`}
-            className={`flex items-start justify-between gap-4 py-4 px-2 -mx-2 rounded-[4px] border-t border-rule hover:bg-[#faf7f2] transition-colors ${
-              i === rows.length - 1 ? "border-b" : ""
-            }`}
-          >
-            <div className="min-w-0 flex-1">
-              <div className="flex items-baseline gap-2">
-                <span className="font-serif font-medium text-[17px] text-oxblood">{o.name}</span>
-                <span className="text-[12px] text-muted capitalize">{o.type}</span>
-              </div>
-              {o.description && <div className="text-[13px] text-ink-soft mt-0.5 truncate">{o.description}</div>}
-              {o.latest && (
-                <div className="text-[12.5px] mt-1.5 truncate">
+            name={o.name}
+            subtitle={o.type}
+            description={o.description}
+            metaLine={
+              o.latest && (
+                <>
                   <span className="text-link">{o.latest.date}</span>{" "}
                   <span className="font-semibold text-ink">{o.latest.title}</span>{" "}
                   <span className="text-muted">· with {o.latest.withNames}</span>
-                </div>
-              )}
-            </div>
-
-            <div className="flex flex-col items-end gap-1 shrink-0">
-              {o.strength && (
-                <span
-                  className={`text-[10px] tracking-[0.05em] uppercase border rounded-[3px] px-2 py-0.5 whitespace-nowrap ${
-                    o.strength === "Strong" ? "border-link text-link" : "border-[#a08a63] text-[#a08a63]"
-                  }`}
-                >
-                  {o.strength}
-                </span>
-              )}
-              {o.interactionCount > 0 && (
-                <span className="text-[11px] text-muted whitespace-nowrap">
-                  {o.interactionCount} interaction{o.interactionCount === 1 ? "" : "s"}
-                </span>
-              )}
-            </div>
-          </Link>
+                </>
+              )
+            }
+            badge={o.strength ? { label: o.strength, tone: o.strength === "Strong" ? "strong" : "warm" } : null}
+            meta={o.interactionCount > 0 ? `${o.interactionCount} interaction${o.interactionCount === 1 ? "" : "s"}` : undefined}
+            isLast={i === rows.length - 1}
+          />
         ))}
       </div>
     </div>

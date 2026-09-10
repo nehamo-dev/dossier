@@ -2,10 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { reconnectSuggestions as mockReconnect, activityFeed as mockActivity } from "@/lib/mock-data";
+import RelationshipCard from "@/components/RelationshipCard";
+import {
+  reconnectSuggestions as mockReconnect,
+  orgCatchUps as mockOrgCatchUps,
+  activityFeed as mockActivity,
+} from "@/lib/mock-data";
 import {
   getAllInteractions,
   getAllPeople,
+  getAllOrganizations,
   getAllSources,
   sourceLabel,
   shortDate,
@@ -14,10 +20,12 @@ import {
 } from "@/lib/supabase/queries";
 
 type ReconnectRow = { slug: string; name: string; title: string; reason: string; quietFor: string };
+type OrgCatchUpRow = { slug: string; name: string; type: string; reason: string; quietFor: string };
 type ActivityRow = { date: string; title: string; context: string; body: string; source: string };
 
 export default function DashboardHome({ mode }: { mode: "real" | "demo" }) {
   const [reconnect, setReconnect] = useState<ReconnectRow[] | null>(null);
+  const [orgCatchUp, setOrgCatchUp] = useState<OrgCatchUpRow[] | null>(null);
   const [activity, setActivity] = useState<ActivityRow[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,6 +36,11 @@ export default function DashboardHome({ mode }: { mode: "real" | "demo" }) {
           .slice(0, 3)
           .map((p) => ({ slug: p.slug, name: p.name, title: p.title, reason: p.reason, quietFor: p.quietFor }))
       );
+      setOrgCatchUp(
+        mockOrgCatchUps
+          .slice(0, 3)
+          .map((o) => ({ slug: o.slug, name: o.name, type: o.type, reason: o.reason, quietFor: o.quietFor }))
+      );
       setActivity(
         mockActivity.map((a) => ({ date: a.date, title: a.title, context: a.context, body: a.body, source: a.source }))
       );
@@ -36,12 +49,13 @@ export default function DashboardHome({ mode }: { mode: "real" | "demo" }) {
 
     let cancelled = false;
 
-    Promise.all([getAllPeople(), getAllInteractions(), getAllSources()])
-      .then(([people, interactions, sources]) => {
+    Promise.all([getAllPeople(), getAllOrganizations(), getAllInteractions(), getAllSources()])
+      .then(([people, orgs, interactions, sources]) => {
         if (cancelled) return;
 
         const sourceById = new Map(sources.map((s) => [s.id, s]));
         const personById = new Map(people.map((p) => [p.id, p]));
+        const orgById = new Map(orgs.map((o) => [o.id, o]));
 
         const activityRows: ActivityRow[] = interactions.slice(0, 6).map((i) => ({
           date: shortDate(i.date),
@@ -52,9 +66,14 @@ export default function DashboardHome({ mode }: { mode: "real" | "demo" }) {
         }));
 
         const latestByPerson = new Map<string, (typeof interactions)[number]>();
+        const latestByOrg = new Map<string, (typeof interactions)[number]>();
         for (const i of interactions) {
-          const existing = latestByPerson.get(i.person_id);
-          if (!existing || new Date(i.date) > new Date(existing.date)) latestByPerson.set(i.person_id, i);
+          const p = latestByPerson.get(i.person_id);
+          if (!p || new Date(i.date) > new Date(p.date)) latestByPerson.set(i.person_id, i);
+          if (i.organization_id) {
+            const o = latestByOrg.get(i.organization_id);
+            if (!o || new Date(i.date) > new Date(o.date)) latestByOrg.set(i.organization_id, i);
+          }
         }
 
         const reconnectRows: ReconnectRow[] = Array.from(latestByPerson.entries())
@@ -76,7 +95,27 @@ export default function DashboardHome({ mode }: { mode: "real" | "demo" }) {
           .slice(0, 3)
           .map(({ gapDays: _gapDays, ...rest }) => rest);
 
+        const orgCatchUpRows: OrgCatchUpRow[] = Array.from(latestByOrg.entries())
+          .map(([orgId, interaction]) => {
+            const org = orgById.get(orgId);
+            if (!org) return null;
+            const gapDays = daysSince(interaction.date);
+            return {
+              slug: org.id,
+              name: org.name,
+              type: org.type,
+              reason: `Last activity: ${interaction.title ?? interaction.interaction_type}, ${shortDate(interaction.date)} — ${gapDays} days ago.`,
+              quietFor: quietForLabel(gapDays),
+              gapDays,
+            };
+          })
+          .filter((r): r is OrgCatchUpRow & { gapDays: number } => r !== null)
+          .sort((a, b) => b.gapDays - a.gapDays)
+          .slice(0, 3)
+          .map(({ gapDays: _gapDays, ...rest }) => rest);
+
         setReconnect(reconnectRows);
+        setOrgCatchUp(orgCatchUpRows);
         setActivity(activityRows);
       })
       .catch((err) => setError(err instanceof Error ? err.message : "Could not load your data."));
@@ -100,8 +139,8 @@ export default function DashboardHome({ mode }: { mode: "real" | "demo" }) {
 
       {error && <div className="text-[13px] text-link mb-8">{error}</div>}
 
-      <section className="mb-15">
-        <div className="flex items-baseline justify-between mb-5">
+      <section className="mb-13">
+        <div className="flex items-baseline justify-between mb-3">
           <span className="text-[11px] tracking-[0.08em] uppercase text-muted">Worth reconnecting</span>
           <Link href="/reconnect" className="text-[12px]">
             View all →
@@ -112,23 +151,40 @@ export default function DashboardHome({ mode }: { mode: "real" | "demo" }) {
           {reconnect === null && <div className="text-[13px] text-muted py-5">Loading…</div>}
           {reconnect?.length === 0 && <div className="text-[13px] text-muted py-5">No interactions loaded yet.</div>}
           {reconnect?.map((p, i) => (
-            <div
+            <RelationshipCard
               key={p.slug}
-              className={`flex justify-between items-start py-5 border-t border-rule ${
-                i === reconnect.length - 1 ? "border-b" : ""
-              }`}
-            >
-              <div className="max-w-[500px]">
-                <Link href={`/people/${p.slug}`} className="font-serif font-medium text-[19px] text-oxblood block">
-                  {p.name}
-                </Link>
-                <div className="text-[13px] text-muted mt-0.5 mb-2">{p.title}</div>
-                <div className="text-[14px] text-ink-soft leading-relaxed">{p.reason}</div>
-              </div>
-              <Link href={`/people/${p.slug}`} className="text-[12px] whitespace-nowrap mt-1">
-                View story →
-              </Link>
-            </div>
+              href={`/people/${p.slug}`}
+              name={p.name}
+              subtitle={p.title}
+              description={p.reason}
+              meta={p.quietFor}
+              isLast={i === reconnect.length - 1}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-15">
+        <div className="flex items-baseline justify-between mb-3">
+          <span className="text-[11px] tracking-[0.08em] uppercase text-muted">Organizations to catch up with</span>
+          <Link href="/organizations" className="text-[12px]">
+            View all →
+          </Link>
+        </div>
+
+        <div className="flex flex-col">
+          {orgCatchUp === null && <div className="text-[13px] text-muted py-5">Loading…</div>}
+          {orgCatchUp?.length === 0 && <div className="text-[13px] text-muted py-5">Nothing to surface yet.</div>}
+          {orgCatchUp?.map((o, i) => (
+            <RelationshipCard
+              key={o.slug}
+              href={`/organizations/${o.slug}`}
+              name={o.name}
+              subtitle={o.type}
+              description={o.reason}
+              meta={o.quietFor}
+              isLast={i === orgCatchUp.length - 1}
+            />
           ))}
         </div>
       </section>
