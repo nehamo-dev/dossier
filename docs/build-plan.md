@@ -45,10 +45,18 @@ This is the most important structural decision and it must be right from Phase 0
 - Never seeded, mocked, or touched by demo logic.
 
 ### Demo data (public-facing)
-- A **fully separate Supabase project** — not a schema flag, not a shared table with an `is_demo` column. Full separation means a broken RLS policy or a copy-pasted query can never leak real data.
 - Fabricated but realistic: invented names, orgs, and relationship narratives with the same shape as real data (same org types, same story structure) — never "Person 1 / Company A" placeholders.
-- Seeded **once**, via a one-time script. No ingestion pipeline, no cron job, no MCP connector ever writes to it. Read-only from the app's perspective after seeding.
 - No auth required — anonymous "View demo" access.
+
+**Decision (2026-09-10), superseding the original "fully separate Supabase project" plan below:** demo data lives as static content in the app's own code (`lib/mock-data.ts`), never in Supabase at all. Demo mode makes zero database calls, so there is no RLS policy to get wrong and no shared table to leak from — a stronger guarantee than a second Supabase project would give, at a fraction of the setup cost. Deliberately simpler than what's described next; kept for the record, not as the active plan.
+
+<details>
+<summary>Original plan (not what's built)</summary>
+
+- A **fully separate Supabase project** — not a schema flag, not a shared table with an `is_demo` column. Full separation means a broken RLS policy or a copy-pasted query can never leak real data.
+- Seeded **once**, via a one-time script. No ingestion pipeline, no cron job, no MCP connector ever writes to it. Read-only from the app's perspective after seeding.
+
+</details>
 
 ### App routing
 The frontend picks which Supabase project/client to talk to based on whether the visitor is authenticated as you or browsing anonymously. This must be two distinct client instances configured by environment, not one query path that branches on a flag. A landing screen offers **"Sign in"** (you) vs. **"View demo"** (everyone else).
@@ -119,13 +127,12 @@ ingestion_runs
 - Lock the real Supabase project behind email-gated magic-link auth restricted to you specifically.
 - Confirm: no path exists where real data is reachable without authentication as you.
 
-### Phase 2b — Demo mode (isolated)
-- Stand up the second, fully separate Supabase project.
-- Generate a fixed, fabricated dataset (~20–30 people, ~8 orgs) with realistic relationship narratives, timelines, and reconnect-style copy — same shape as real data, invented content.
-- Seed once via script. No pipeline ever writes to it again.
-- Build the landing route: Sign in vs. View demo, pointing at two entirely separate Supabase clients.
+### Phase 2b — Demo mode (isolated) — done, simplified per the 2026-09-10 decision above
+- Demo dataset lives in `lib/mock-data.ts` — no second Supabase project. Realistic relationship narratives, timelines, and reconnect-style copy — same shape as real data, invented content.
+- No seeding step needed — it's checked into the app, not a database.
+- Landing route built: Sign in vs. View demo (`components/LandingGate.tsx`), gating every route via `lib/use-mode.ts` + `RequireAccess`.
 
-**Checkpoint:** A stranger can open the demo and get the full experience without ever touching or risking your real data.
+**Checkpoint:** A stranger can open the demo and get the full experience without ever touching or risking your real data — true by construction, since demo mode never calls Supabase.
 
 ### Phase 3 — Widen ingestion (real data only)
 - Repeat the Phase 0 pipeline across your remaining organizations.
