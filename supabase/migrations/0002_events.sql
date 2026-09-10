@@ -8,6 +8,8 @@ create table if not exists events (
   title text not null,
   event_date date not null,
   location text,
+  description text,
+  attendees text, -- comma-joined display names/emails, self excluded
   external_id text,
   created_at timestamptz not null default now()
 );

@@ -32,9 +32,9 @@ export default function TopNav({ mode }: { mode: "real" | "demo" }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-16 py-4 sm:py-6.5 border-b border-rule">
       <div className="flex items-baseline gap-3.5 shrink-0">
-        <span className="font-serif italic font-semibold text-[21px] tracking-[0.01em] text-oxblood">
+        <Link href="/" className="font-serif italic font-semibold text-[21px] tracking-[0.01em] text-oxblood">
           Dossier
-        </span>
+        </Link>
         {mode === "demo" && (
           <span className="text-[10px] tracking-[0.08em] uppercase text-muted border border-rule px-1.5 py-0.5 rounded-[3px]">
             Demo

@@ -13,7 +13,7 @@ export default function RelationshipCard({
   meta,
   isLast,
 }: {
-  href: string;
+  href?: string;
   name: string;
   subtitle?: string;
   description?: string;
@@ -22,13 +22,12 @@ export default function RelationshipCard({
   meta?: string;
   isLast?: boolean;
 }) {
-  return (
-    <Link
-      href={href}
-      className={`flex items-start justify-between gap-4 py-4 px-2 -mx-2 rounded-[4px] border-t border-rule hover:bg-[#faf7f2] transition-colors ${
-        isLast ? "border-b" : ""
-      }`}
-    >
+  const className = `flex items-start justify-between gap-4 py-4 px-2 -mx-2 rounded-[4px] border-t border-rule transition-colors ${
+    href ? "hover:bg-[#faf7f2]" : ""
+  } ${isLast ? "border-b" : ""}`;
+
+  const content = (
+    <>
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
           <span className="font-serif font-medium text-[17px] text-oxblood truncate">{name}</span>
@@ -52,6 +51,16 @@ export default function RelationshipCard({
           {meta && <span className="text-[11px] text-muted whitespace-nowrap">{meta}</span>}
         </div>
       )}
-    </Link>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={className}>
+        {content}
+      </Link>
+    );
+  }
+
+  return <div className={className}>{content}</div>;
 }

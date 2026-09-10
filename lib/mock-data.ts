@@ -55,6 +55,8 @@ export type DossierEvent = {
   title: string;
   date: string;
   location?: string;
+  description?: string;
+  attendees?: string;
 };
 
 export type ActivityItem = {
@@ -468,14 +470,81 @@ export const activityFeed: ActivityItem[] = [
 // to mark as networking, rather than 1:1 interactions already tied to a
 // specific person's timeline.
 export const events: DossierEvent[] = [
-  { slug: "evt-1", title: "Products That Count Summit", date: "Feb 3, 2026", location: "San Francisco, CA" },
-  { slug: "evt-2", title: "Coffee catch-up with Marcus Webb", date: "Jan 2026", location: "Seattle, WA" },
-  { slug: "evt-3", title: "Mind the Product Meetup — SF Chapter", date: "Feb 2026", location: "San Francisco, CA" },
-  { slug: "evt-4", title: "Product School Quarterly Dinner", date: "Oct 2025", location: "New York, NY" },
-  { slug: "evt-5", title: "LogRocket Product Leader Networking Dinner", date: "Jun 2025", location: "Seattle, WA" },
-  { slug: "evt-6", title: "Reforge Growth Loops Cohort Panel", date: "Nov 2024", location: "Virtual" },
-  { slug: "evt-7", title: "Women in Product Mentor Session", date: "Jun 2025", location: "Virtual" },
-  { slug: "evt-8", title: "Intro call with Sarah Lin", date: "Apr 2026", location: "Video call" },
-  { slug: "evt-9", title: "Executive Roundtable — Seattle", date: "Mar 2025", location: "Seattle, WA" },
-  { slug: "evt-10", title: "ADPList Mentorship Session", date: "Feb 2025", location: "Video call" },
+  {
+    slug: "evt-1",
+    title: "Products That Count Summit",
+    date: "Feb 3, 2026",
+    location: "San Francisco, CA",
+    description: "Annual summit for the Advisory Council — keynotes, panels, and a backstage catch-up after.",
+    attendees: "Jane Smith, Marcus Webb, Hoda Mehr",
+  },
+  {
+    slug: "evt-2",
+    title: "Coffee catch-up with Marcus Webb",
+    date: "Jan 2026",
+    location: "Seattle, WA",
+    description: "Casual coffee — swapped notes on platform strategy ahead of the summit.",
+    attendees: "Marcus Webb",
+  },
+  {
+    slug: "evt-3",
+    title: "Mind the Product Meetup — SF Chapter",
+    date: "Feb 2026",
+    location: "San Francisco, CA",
+    description: "Regional PM meetup — same circuit as the Products That Count summit crowd.",
+    attendees: "Jane Smith",
+  },
+  {
+    slug: "evt-4",
+    title: "Product School Quarterly Dinner",
+    date: "Oct 2025",
+    location: "New York, NY",
+    description: "Cohort dinner for guest instructors and alumni.",
+    attendees: "Priya Raman",
+  },
+  {
+    slug: "evt-5",
+    title: "LogRocket Product Leader Networking Dinner",
+    date: "Jun 2025",
+    location: "Seattle, WA",
+    description: "Small-group dinner for executive product leaders, hosted by LogRocket.",
+  },
+  {
+    slug: "evt-6",
+    title: "Reforge Growth Loops Cohort Panel",
+    date: "Nov 2024",
+    location: "Virtual",
+    description: "Alumni panel on growth loops — the last cohort session before the group went quiet.",
+    attendees: "Jane Smith, Marcus Webb, Sarah Lin",
+  },
+  {
+    slug: "evt-7",
+    title: "Women in Product Mentor Session",
+    date: "Jun 2025",
+    location: "Virtual",
+    description: "Mentor session for early-career PMs, hosted through Devon's community.",
+    attendees: "Devon Cole",
+  },
+  {
+    slug: "evt-8",
+    title: "Intro call with Sarah Lin",
+    date: "Apr 2026",
+    location: "Video call",
+    description: "First conversation since the leadership panel — talked hiring plans.",
+    attendees: "Sarah Lin",
+  },
+  {
+    slug: "evt-9",
+    title: "Executive Roundtable — Seattle",
+    date: "Mar 2025",
+    location: "Seattle, WA",
+    description: "Small-group roundtable on product org design, invite-only.",
+  },
+  {
+    slug: "evt-10",
+    title: "ADPList Mentorship Session",
+    date: "Feb 2025",
+    location: "Video call",
+    description: "Free 30-minute mentorship slot, booked through ADPList.",
+  },
 ];

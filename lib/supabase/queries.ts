@@ -53,6 +53,8 @@ export type RealEvent = {
   title: string;
   event_date: string;
   location: string | null;
+  description: string | null;
+  attendees: string | null;
   external_id: string | null;
 };
 
@@ -98,6 +100,13 @@ export function monthYear(dateStr: string): string {
 
 export function shortDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+// Caps a name list at `max` — "A, B, C" or "A, B and 4 others".
+export function joinNames(names: string[], max = 3): string {
+  if (names.length <= max) return names.join(", ");
+  const shown = names.slice(0, max - 1);
+  return `${shown.join(", ")} and ${names.length - shown.length} others`;
 }
 
 export function sourceLabel(source: RealSource | undefined): string | null {
