@@ -48,6 +48,14 @@ export type RealOrgPersonLink = {
   confidence: string | null;
 };
 
+export type RealEvent = {
+  id: string;
+  title: string;
+  event_date: string;
+  location: string | null;
+  external_id: string | null;
+};
+
 export async function getAllPeople(): Promise<RealPerson[]> {
   const { data, error } = await supabaseReal.from("people").select("*").order("name");
   if (error) throw error;
@@ -74,6 +82,12 @@ export async function getAllSources(): Promise<RealSource[]> {
 
 export async function getAllLinks(): Promise<RealOrgPersonLink[]> {
   const { data, error } = await supabaseReal.from("org_person_links").select("*");
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function getAllEvents(): Promise<RealEvent[]> {
+  const { data, error } = await supabaseReal.from("events").select("*").order("event_date", { ascending: false });
   if (error) throw error;
   return data ?? [];
 }

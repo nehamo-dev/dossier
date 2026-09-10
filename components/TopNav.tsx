@@ -9,7 +9,7 @@ const NAV_ITEMS: { label: string; href: string | null; match: string | null }[] 
   { label: "Home", href: "/", match: "/" },
   { label: "People", href: "/people", match: "/people" },
   { label: "Organizations", href: "/organizations", match: "/organizations" },
-  { label: "Activity", href: null, match: null },
+  { label: "Events", href: "/events", match: "/events" },
   { label: "Reconnect", href: "/reconnect", match: "/reconnect" },
   { label: "Your Story", href: null, match: null },
 ];

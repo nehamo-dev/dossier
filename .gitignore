@@ -42,6 +42,7 @@ yarn-error.log*
 # (scripts/generate-phase0-seed-sql.mjs) are fine to commit; their output
 # is not.
 /data/phase0/
+/data/events/
 
 # typescript
 *.tsbuildinfo

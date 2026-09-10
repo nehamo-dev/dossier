@@ -50,6 +50,13 @@ export type OrgCatchUp = {
   source: string;
 };
 
+export type DossierEvent = {
+  slug: string;
+  title: string;
+  date: string;
+  location?: string;
+};
+
 export type ActivityItem = {
   date: string;
   title: string;
@@ -455,4 +462,20 @@ export const activityFeed: ActivityItem[] = [
     body: "Double intro email — following up next week to see if it landed.",
     source: "via Gmail, Apr 2026",
   },
+];
+
+// Networking events — the equivalent of calendar entries you'd color-code
+// to mark as networking, rather than 1:1 interactions already tied to a
+// specific person's timeline.
+export const events: DossierEvent[] = [
+  { slug: "evt-1", title: "Products That Count Summit", date: "Feb 3, 2026", location: "San Francisco, CA" },
+  { slug: "evt-2", title: "Coffee catch-up with Marcus Webb", date: "Jan 2026", location: "Seattle, WA" },
+  { slug: "evt-3", title: "Mind the Product Meetup — SF Chapter", date: "Feb 2026", location: "San Francisco, CA" },
+  { slug: "evt-4", title: "Product School Quarterly Dinner", date: "Oct 2025", location: "New York, NY" },
+  { slug: "evt-5", title: "LogRocket Product Leader Networking Dinner", date: "Jun 2025", location: "Seattle, WA" },
+  { slug: "evt-6", title: "Reforge Growth Loops Cohort Panel", date: "Nov 2024", location: "Virtual" },
+  { slug: "evt-7", title: "Women in Product Mentor Session", date: "Jun 2025", location: "Virtual" },
+  { slug: "evt-8", title: "Intro call with Sarah Lin", date: "Apr 2026", location: "Video call" },
+  { slug: "evt-9", title: "Executive Roundtable — Seattle", date: "Mar 2025", location: "Seattle, WA" },
+  { slug: "evt-10", title: "ADPList Mentorship Session", date: "Feb 2025", location: "Video call" },
 ];
