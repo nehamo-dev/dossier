@@ -1,24 +1,17 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { useAuth } from "@/lib/auth-context";
-import { getDossierMode } from "@/lib/mode";
+import type { ReactNode } from "react";
+import { useMode } from "@/lib/use-mode";
 import TopNav from "./TopNav";
 import DossiAIBar from "./DossiAIBar";
 
 export default function AppShell({ children }: { children: ReactNode }) {
-  const { session, loading } = useAuth();
-  const [demoMode, setDemoModeState] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    setDemoModeState(getDossierMode() === "demo");
-  }, []);
-
-  const showChrome = !loading && demoMode !== null && (!!session || demoMode);
+  const mode = useMode();
+  const showChrome = mode.status === "real" || mode.status === "demo";
 
   return (
     <>
-      {showChrome && <TopNav mode={session ? "real" : "demo"} />}
+      {showChrome && <TopNav mode={mode.status === "real" ? "real" : "demo"} />}
       {showChrome && <DossiAIBar />}
       <main className="flex-1">{children}</main>
     </>
