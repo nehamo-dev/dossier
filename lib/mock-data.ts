@@ -466,9 +466,9 @@ export const activityFeed: ActivityItem[] = [
   },
 ];
 
-// Networking events — the equivalent of calendar entries you'd color-code
-// to mark as networking, rather than 1:1 interactions already tied to a
-// specific person's timeline.
+// Networking events — conferences and group meetups only. 1:1s (coffee
+// chats, intro calls, mentorship sessions) live on the relevant person's
+// timeline instead, not here.
 export const events: DossierEvent[] = [
   {
     slug: "evt-1",
@@ -477,14 +477,6 @@ export const events: DossierEvent[] = [
     location: "San Francisco, CA",
     description: "Annual summit for the Advisory Council — keynotes, panels, and a backstage catch-up after.",
     attendees: "Jane Smith, Marcus Webb, Hoda Mehr",
-  },
-  {
-    slug: "evt-2",
-    title: "Coffee catch-up with Marcus Webb",
-    date: "Jan 2026",
-    location: "Seattle, WA",
-    description: "Casual coffee — swapped notes on platform strategy ahead of the summit.",
-    attendees: "Marcus Webb",
   },
   {
     slug: "evt-3",
@@ -518,22 +510,6 @@ export const events: DossierEvent[] = [
     attendees: "Jane Smith, Marcus Webb, Sarah Lin",
   },
   {
-    slug: "evt-7",
-    title: "Women in Product Mentor Session",
-    date: "Jun 2025",
-    location: "Virtual",
-    description: "Mentor session for early-career PMs, hosted through Devon's community.",
-    attendees: "Devon Cole",
-  },
-  {
-    slug: "evt-8",
-    title: "Intro call with Sarah Lin",
-    date: "Apr 2026",
-    location: "Video call",
-    description: "First conversation since the leadership panel — talked hiring plans.",
-    attendees: "Sarah Lin",
-  },
-  {
     slug: "evt-9",
     title: "Executive Roundtable — Seattle",
     date: "Mar 2025",
@@ -541,10 +517,17 @@ export const events: DossierEvent[] = [
     description: "Small-group roundtable on product org design, invite-only.",
   },
   {
-    slug: "evt-10",
-    title: "ADPList Mentorship Session",
-    date: "Feb 2025",
-    location: "Video call",
-    description: "Free 30-minute mentorship slot, booked through ADPList.",
+    slug: "evt-11",
+    title: "Seattle CPO Happy Hour",
+    date: "May 2025",
+    location: "Seattle, WA",
+    description: "Informal happy hour for local CPOs and VPs of Product.",
+  },
+  {
+    slug: "evt-12",
+    title: "Skip Coach Live: The Death of the PRD",
+    date: "Sep 2025",
+    location: "Virtual",
+    description: "The Skip's community webinar series — this one on AI-powered building over static docs.",
   },
 ];
